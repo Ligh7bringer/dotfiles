@@ -1,0 +1,106 @@
+set confirm off
+set verbose off
+set history filename ~/.gdb_history
+set history save
+
+set output-radix 0x10
+set input-radix 0x10
+
+# These make gdb never pause in its output
+set height 0
+set width 0
+
+set $SHOW_CONTEXT = 1
+set $SHOW_NEST_INSN = 0
+
+set $CONTEXTSIZE_STACK = 6
+set $CONTEXTSIZE_DATA  = 8
+set $CONTEXTSIZE_CODE  = 8
+
+# __________________end gdb options_________________
+#
+
+# __________________color functions_________________
+#
+# color codes
+set $BLACK = 0
+set $RED = 1
+set $GREEN = 2
+set $YELLOW = 3
+set $BLUE = 4
+set $MAGENTA = 5
+set $CYAN = 6
+set $WHITE = 7
+
+# CHANGME: If you want to modify the "theme" change the colors here
+#          or just create a ~/.gdbinit.local and set these variables there
+set $COLOR_REGNAME = $GREEN
+set $COLOR_REGVAL = $BLACK
+set $COLOR_REGVAL_MODIFIED  = $RED
+set $COLOR_SEPARATOR = $BLUE
+set $COLOR_CPUFLAGS = $RED
+
+# this is ugly but there's no else if available :-(
+define color
+ if $USECOLOR == 1
+ 	# BLACK
+ 	if $arg0 == 0
+ 		echo \033[30m
+ 	else
+ 		# RED
+	 	if $arg0 == 1
+	 		echo \033[31m
+	 	else
+	 		# GREEN
+	 		if $arg0 == 2
+	 			echo \033[32m
+	 		else
+	 			# YELLOW
+	 			if $arg0 == 3
+	 				echo \033[33m
+	 			else
+	 				# BLUE
+	 				if $arg0 == 4
+	 					echo \033[34m
+	 				else
+	 					# MAGENTA
+	 					if $arg0 == 5
+	 						echo \033[35m
+	 					else
+	 						# CYAN
+	 						if $arg0 == 6
+	 							echo \033[36m
+	 						else
+	 							# WHITE
+	 							if $arg0 == 7
+	 								echo \033[37m
+	 							end
+	 						end
+	 					end
+	 				end
+	 			end
+	 		end
+	 	end
+	 end
+ end
+end
+
+define color_reset
+    if $USECOLOR == 1
+	   echo \033[0m
+    end
+end
+
+define color_bold
+    if $USECOLOR == 1
+	   echo \033[1m
+    end
+end
+
+define color_underline
+    if $USECOLOR == 1
+	   echo \033[4m
+    end
+end
+
+#EOF

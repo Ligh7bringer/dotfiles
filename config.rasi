@@ -1,0 +1,6 @@
+configuration {
+    font: "Ubuntu 14";
+    show-icons: true;
+    icon-theme: "Flat-Remix-Dark";
+    theme: "Arc-Dark";
+}
