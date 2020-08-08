@@ -85,6 +85,10 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
+# Autosuggestions colour
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=5'
+
 plugins=(
   git
   zsh-syntax-highlighting
@@ -93,6 +97,7 @@ plugins=(
   virtualenv
   zsh-256color
   colorize
+  zsh-z
   #globalias
 )
 
@@ -107,9 +112,9 @@ export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 else
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -120,9 +125,10 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+
 # Aliases
-alias zshconfig="subl ~/.zshrc"
-alias ohmyzsh="subl ~/.oh-my-zsh"
+alias zshconf="$EDITOR ~/.zshrc"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias zshsrc="source ~/.zshrc"
 alias vmk="virtualenv .venv"
 alias vact="source .venv/bin/activate"
@@ -141,6 +147,8 @@ alias vkr="__NV_PRIME_RENDER_OFFLOAD=1"
 alias ff="find . -name $1"
 alias nvcc="/opt/cuda/bin/nvcc"
 alias cudadbg="CUDNN_LOGINFO_DBG=1 CUDNN_LOGDEST_DBG=stderr"
+alias gdiff="git diff"
+alias gadd="git add"
 
 # Functions
 function up {
@@ -199,12 +207,14 @@ export PATH="$PATH:/home/sgeor/.gem/ruby/2.6.0/bin"
 export PATH="$PATH:/home/sgeor/bin/"
 export PATH="/home/sgeor/.cache/yay/bcompare/src/install/bin:$PATH"
 export PATH="/home/sgeor/.local/lib/python3.7/site-packages/:$PATH"
+export PATH="$PATH:/home/sgeor/.dotnet/tools"
+export PATH="$PATH:/home/sgeor/.gem/ruby/2.7.0/bin"
 
 export ComputeCpp_DIR="/home/sgeor/computecpp"
 export ComputeCpp_INCLUDE_DIRS="$ComputeCpp_DIR/include"
 export PAGER="most"
 
-source $(dirname $(gem which colorls))/tab_complete.sh
+# source $(dirname $(gem which colorls))/tab_complete.sh
 
 # notify when commands finish
 source ~/.oh-my-zsh/custom/plugins/notify/notify.plugin.zsh
@@ -220,3 +230,6 @@ zstyle ':notify:*' success-icon "~/Pictures/thumbs_up.png"
 [ -f /home/sgeor/.travis/travis.sh ] && source /home/sgeor/.travis/travis.sh
 
 export SYCL_HOME="/home/sgeor/sycl_workspace/"
+
+alias rgr='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+
